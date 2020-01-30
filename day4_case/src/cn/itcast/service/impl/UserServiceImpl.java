@@ -17,4 +17,9 @@ public class UserServiceImpl implements UserService {
         UserDao userDao = new UserDaoImpl();
         return userDao.findAll();
     }
+
+    @Override
+    public User login(User user) {
+        return new UserDaoImpl().findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+    }
 }
