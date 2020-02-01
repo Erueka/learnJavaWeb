@@ -10,9 +10,18 @@ import java.util.List;
  */
 public interface UserDao {
     List<User> findAll();
+
     User findUserByUsernameAndPassword(String username, String password);
+
     void add(User user);
+
     void delete(int parseInt);
+
     User findUserById(int parseInt);
+
     void update(User user);
+
+    int findTotalCount();
+
+    List<User> findUserByPage(int start, int rows);
 }

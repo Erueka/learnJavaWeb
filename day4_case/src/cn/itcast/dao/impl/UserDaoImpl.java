@@ -63,4 +63,16 @@ public class UserDaoImpl implements UserDao {
         template.update(sql, user.getName(), user.getGender(), user.getAge(), user.getAddress(), user.getQq(), user.getEmail(), user.getId());
     }
 
+    @Override
+    public int findTotalCount() {
+        String sql = "SELECT count(*) from user";
+        return template.queryForObject(sql, Integer.class);
+    }
+
+    @Override
+    public List<User> findUserByPage(int start, int rows) {
+        String sql = "select * from user limit ? , ?";
+        return  template.query(sql, new BeanPropertyRowMapper<User>(User.class), start, rows);
+    }
+
 }
