@@ -1,8 +1,9 @@
-package cn.itcast.dao;
+package cn.www.dao;
 
-import cn.itcast.domain.User;
+import cn.www.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ling
@@ -21,7 +22,7 @@ public interface UserDao {
 
     void update(User user);
 
-    int findTotalCount();
+    int findTotalCount(Map<String, String[]> map);
 
-    List<User> findUserByPage(int start, int rows);
+    List<User> findUserByPage(int start, int rows, Map<String, String[]> map);
 }

@@ -34,6 +34,11 @@
         }
     </script>
     <script>
+        function pageChange(i) {
+            location.href = "${pageContext.request.contextPath}/findUserByPageServlet?currentPage="+i+"&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}";
+        }
+    </script>
+    <script>
         window.onload = function () {
             document.getElementById("delSelectedUser").onclick = function () {
                 if (confirm("您确定要删除吗？")){
@@ -64,18 +69,18 @@
 <div class="container">
     <h3 style="text-align: center">用户信息列表</h3>
     <div style="float:left;">
-        <form class="form-inline">
+        <form class="form-inline" action="${pageContext.request.contextPath}/findUserByPageServlet" method="post">
             <div class="form-group">
                 <label for="exampleInputName2">姓名</label>
-                <input type="text" class="form-control" id="exampleInputName2">
+                <input type="text" name="name" class="form-control" id="exampleInputName2" value="${condition.name[0]}">
             </div>
             <div class="form-group">
                 <label for="exampleInputName3">籍贯</label>
-                <input type="text" class="form-control" id="exampleInputName3">
+                <input type="text" name="address" class="form-control" id="exampleInputName3" value="${condition.address[0]}">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail2">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail2">
+                <input type="email" name="email" class="form-control" id="exampleInputEmail2" value="${condition.email[0]}">
             </div>
             <button type="submit" class="btn btn-default">查询</button>
         </form>
@@ -123,7 +128,7 @@
                 <c:if test="${pageBean.currentPage != 1}">
                     <li>
                 </c:if>
-                    <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage - 1}&rows=5" aria-label="Previous">
+                    <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage - 1}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -134,7 +139,7 @@
                     <c:if test="${pageBean.currentPage!=i}">
                         <li>
                     </c:if>
-                    <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&rows=5">${i}</a></li>
+                    <a href="javascript: pageChange(${i})">${i}</a></li>
                 </c:forEach>
                 <c:if test="${pageBean.currentPage == pageBean.totalPage}">
                     <li class="disabled">
@@ -142,7 +147,7 @@
                 <c:if test="${pageBean.currentPage != pageBean.totalPage}">
                     <li>
                 </c:if>
-                    <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage + 1}&rows=5" aria-label="Next">
+                    <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage + 1}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

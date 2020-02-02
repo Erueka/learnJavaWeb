@@ -1,9 +1,10 @@
-package cn.itcast.service;
+package cn.www.service;
 
-import cn.itcast.domain.PageBean;
-import cn.itcast.domain.User;
+import cn.www.domain.PageBean;
+import cn.www.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ling
@@ -24,5 +25,5 @@ public interface UserService {
 
     void delSelectedUsers(String[] uids);
 
-    PageBean<User> findUserByPage(int parseInt, int parseInt1);
+    PageBean<User> findUserByPage(int parseInt, int parseInt1, Map<String, String[]> map);
 }

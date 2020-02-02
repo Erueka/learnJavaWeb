@@ -1,13 +1,16 @@
-package cn.itcast.dao.impl;
+package cn.www.dao.impl;
 
-import cn.itcast.dao.UserDao;
-import cn.itcast.domain.User;
-import cn.itcast.util.JDBCUtils;
+import cn.www.dao.UserDao;
+import cn.www.domain.User;
+import cn.www.util.JDBCUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Ling
@@ -64,15 +67,48 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int findTotalCount() {
-        String sql = "SELECT count(*) from user";
-        return template.queryForObject(sql, Integer.class);
+    public int findTotalCount(Map<String, String[]> map) {
+        String sql = "SELECT count(*) from user where 1=1 ";
+        StringBuilder sb = new StringBuilder(sql);
+        Set<String> keys = map.keySet();
+        List<Object> para = new ArrayList<>();
+        for (String key : keys) {
+            if ("currentPage".equals(key) || "rows".equals(key))
+                continue;
+            String value = map.get(key)[0];
+            if (value != null && !"".equals(value)) {
+                sb.append(" and " + key + " like ? ");
+                para.add("%" + value + "%");
+            }
+        }
+        return template.queryForObject(sb.toString(), Integer.class, para.toArray());
     }
 
     @Override
-    public List<User> findUserByPage(int start, int rows) {
-        String sql = "select * from user limit ? , ?";
-        return  template.query(sql, new BeanPropertyRowMapper<User>(User.class), start, rows);
+    public List<User> findUserByPage(int start, int rows, Map<String, String[]> map) {
+//        String sql = "select * from user limit ? , ?";
+//        return template.query(sql, new BeanPropertyRowMapper<User>(User.class), start, rows);
+        String sql = "select * from user WHERE 1=1 ";
+        StringBuilder sb = new StringBuilder(sql);
+        Set<String> keys = map.keySet();
+        List<Object> para = new ArrayList<>();
+        for (String key : keys) {
+            if ("currentPage".equals(key) || "rows".equals(key))
+                continue;
+            String value = map.get(key)[0];
+            if (value != null && !"".equals(value)) {
+                sb.append(" and " + key + " like ? ");
+                para.add("%" + value + "%");
+            }
+        }
+        sb.append(" limit ? , ? ");
+        para.add(start);
+        para.add(rows);
+
+        System.out.println(sb.toString());
+        System.out.println(para);
+
+        return template.query(sb.toString(), new BeanPropertyRowMapper<User>(User.class), para.toArray());
     }
 
 }

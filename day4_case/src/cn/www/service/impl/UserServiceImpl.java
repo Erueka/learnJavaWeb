@@ -1,12 +1,13 @@
-package cn.itcast.service.impl;
+package cn.www.service.impl;
 
-import cn.itcast.dao.UserDao;
-import cn.itcast.dao.impl.UserDaoImpl;
-import cn.itcast.domain.PageBean;
-import cn.itcast.domain.User;
-import cn.itcast.service.UserService;
+import cn.www.dao.UserDao;
+import cn.www.dao.impl.UserDaoImpl;
+import cn.www.domain.PageBean;
+import cn.www.domain.User;
+import cn.www.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ling
@@ -52,15 +53,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageBean<User> findUserByPage(int currentPage, int rows) {
+    public PageBean<User> findUserByPage(int currentPage, int rows, Map<String, String[]> map) {
         PageBean<User> pageBean = new PageBean<>();
         UserDao userDao = new UserDaoImpl();
         pageBean.setCurrentPage(currentPage);
         pageBean.setRows(rows);
-        int totalCount = userDao.findTotalCount();
+        int totalCount = userDao.findTotalCount(map);
         pageBean.setTotalCount(totalCount);
         int start = (currentPage - 1) * rows;
-        List<User> list = userDao.findUserByPage(start,rows);
+        List<User> list = userDao.findUserByPage(start, rows, map);
         pageBean.setList(list);
         pageBean.setTotalPage(totalCount % rows == 0 ? totalCount / rows : totalCount / rows + 1);
         return pageBean;

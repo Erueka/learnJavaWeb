@@ -1,8 +1,7 @@
-package cn.itcast.web.servlet;
+package cn.www.web.servlet;
 
-import cn.itcast.domain.User;
-import cn.itcast.service.UserService;
-import cn.itcast.service.impl.UserServiceImpl;
+import cn.www.service.UserService;
+import cn.www.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,15 +14,13 @@ import java.io.IOException;
  * @author Ling
  * Created on 2020/1/31
  */
-@WebServlet("/findUserServlet")
-public class FindUserServlet extends HttpServlet {
+@WebServlet("/delSelectedServlet")
+public class DelSelectedServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        String id = request.getParameter("id");
+        String[] uids = request.getParameterValues("uid");
         UserService userService = new UserServiceImpl();
-        User user = userService.findUserById(id);
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("/update.jsp").forward(request,response);
+        userService.delSelectedUsers(uids);
+        response.sendRedirect(request.getContextPath()+"/findUserByPageServlet");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

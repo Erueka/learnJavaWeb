@@ -1,9 +1,8 @@
-package cn.itcast.util;
+package cn.www.util;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;

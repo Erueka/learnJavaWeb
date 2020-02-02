@@ -1,4 +1,4 @@
-package cn.itcast.web.servlet;
+package cn.www.web.servlet;
 
 import java.awt.Color;
 import java.awt.Font;

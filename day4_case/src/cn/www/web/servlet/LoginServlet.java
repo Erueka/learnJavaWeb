@@ -1,7 +1,7 @@
-package cn.itcast.web.servlet;
+package cn.www.web.servlet;
 
-import cn.itcast.domain.User;
-import cn.itcast.service.impl.UserServiceImpl;
+import cn.www.domain.User;
+import cn.www.service.impl.UserServiceImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;

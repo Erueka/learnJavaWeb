@@ -1,8 +1,8 @@
-package cn.itcast.web.servlet;
+package cn.www.web.servlet;
 
-import cn.itcast.domain.User;
-import cn.itcast.service.UserService;
-import cn.itcast.service.impl.UserServiceImpl;
+import cn.www.domain.User;
+import cn.www.service.UserService;
+import cn.www.service.impl.UserServiceImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -38,7 +38,7 @@ public class addUserServlet extends HttpServlet {
         userService.addUser(user);
 
         // 重定向回去
-        response.sendRedirect(request.getContextPath()+"/userListServlet");
+        response.sendRedirect(request.getContextPath()+"/findUserByPageServlet");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
